@@ -3,6 +3,6 @@ export class User {
   email: string;
   password: string;
   name: string;
-  admin: boolean;
   active: boolean;
+  role_id: number;
 }
