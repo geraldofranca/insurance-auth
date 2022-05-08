@@ -14,39 +14,33 @@ export class UserService {
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    // try {
-      const accountId = await this.getAccount(createUserDto);
+    const accountId = await this.getAccount(createUserDto);
 
-      const data: Prisma.UserCreateInput = {
-        ...createUserDto,
-        password: await bcrypt.hash(createUserDto.password, 10),
-        RoleUser: {
-          create: {
-            role: {
-              connect: {
-                id: parseInt(process.env.ROLE_DEFAULT),
-              },
+    const data: Prisma.UserCreateInput = {
+      ...createUserDto,
+      password: await bcrypt.hash(createUserDto.password, 10),
+      RoleUser: {
+        create: {
+          role: {
+            connect: {
+              id: parseInt(process.env.ROLE_DEFAULT),
             },
           },
         },
-        Account: {
-          connect: {
-            id: accountId,
-          },
+      },
+      Account: {
+        connect: {
+          id: accountId,
         },
-      };
+      },
+    };
 
-      const createdUser = await this.prisma.user.create({ data });
+    const createdUser = await this.prisma.user.create({ data });
 
-      return {
-        ...createdUser,
-        password: undefined,
-      };
-    // } catch (e) {
-    //   throw new Error(
-    //     'Ocorreu um erro na sua solicitação. Por favor, entre em contato com o administrador!',
-    //   );
-    // }
+    return {
+      ...createdUser,
+      password: undefined,
+    };
   }
 
   private async getAccount(createUserDto: CreateUserDto): Promise<number> {
