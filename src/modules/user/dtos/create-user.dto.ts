@@ -16,10 +16,12 @@ export class CreateUserDto extends User {
   @MinLength(4)
   @MaxLength(20)
   @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
-    message: 'senha muito fraca',
+    message: 'Senha muito fraca',
   })
   password: string;
 
-  @IsString()
+  @IsString({
+    message: 'Nome é obrigatório',
+  })
   name: string;
 }

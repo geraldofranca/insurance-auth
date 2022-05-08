@@ -14,7 +14,7 @@ export class UserService {
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    try {
+    // try {
       const accountId = await this.getAccount(createUserDto);
 
       const data: Prisma.UserCreateInput = {
@@ -42,11 +42,11 @@ export class UserService {
         ...createdUser,
         password: undefined,
       };
-    } catch (e) {
-      throw new Error(
-        'Ocorreu um erro na sua solicitação. Por favor, entre em contato com o administrador!',
-      );
-    }
+    // } catch (e) {
+    //   throw new Error(
+    //     'Ocorreu um erro na sua solicitação. Por favor, entre em contato com o administrador!',
+    //   );
+    // }
   }
 
   private async getAccount(createUserDto: CreateUserDto): Promise<number> {

@@ -12,10 +12,10 @@ export class UserController {
   @IsPublic()
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
-    try {
+    // try {
       return this.userService.create(createUserDto);
-    } catch (err) {
-      throw new Error(err);
-    }
+    // } catch (err) {
+    //   throw new Error(err);
+    // }
   }
 }
