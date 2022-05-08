@@ -7,7 +7,7 @@ import { User } from '../entities/user.entity';
 import { AccountService } from '../../account/account.service';
 
 @Injectable()
-export class UserService {
+export class CreateUserService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly accountService: AccountService,
@@ -50,9 +50,5 @@ export class UserService {
 
     const account = await this.accountService.findByUrlDomain(domain);
     return account?.id;
-  }
-
-  findByEmail(email: string) {
-    return this.prisma.user.findUnique({ where: { email } });
   }
 }

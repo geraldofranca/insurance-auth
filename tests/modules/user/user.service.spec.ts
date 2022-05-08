@@ -1,20 +1,22 @@
+import { CreateUserDto } from './../../../src/modules/user/dtos/create-user.dto';
+import { User } from 'src/modules/user/entities/user.entity';
 import { AccountService } from './../../../src/modules/account/account.service';
 import { PrismaService } from './../../../src/modules/prisma/prisma.service';
 import { TestingModule, Test } from '@nestjs/testing';
-import { UserService } from '../../../src/modules/user/services/user.service';
+import { CreateUserService } from '../../../src/modules/user/services/create-user.service';
 
 describe('UserService', () => {
-  let service: UserService;
+  let createUserService: CreateUserService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [PrismaService, AccountService, UserService],
+      providers: [PrismaService, AccountService, CreateUserService],
     }).compile();
 
-    service = module.get<UserService>(UserService);
+    createUserService = module.get<CreateUserService>(CreateUserService);
   });
 
   it('Deve ser definido', () => {
-    expect(service).toBeDefined();
+    expect(createUserService).toBeDefined();
   });
 });
