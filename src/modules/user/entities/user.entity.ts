@@ -4,5 +4,4 @@ export class User {
   password: string;
   name: string;
   active: boolean;
-  role_id: number;
 }

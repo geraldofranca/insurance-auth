@@ -13,6 +13,15 @@ export class UserService {
     const data: Prisma.UserCreateInput = {
       ...createUserDto,
       password: await bcrypt.hash(createUserDto.password, 10),
+      RoleUser: {
+        create: {
+          role: {
+            connect: {
+              id: parseInt(process.env.ROLE_DEFAULT),
+            },
+          },
+        },
+      },
     };
 
     const createdUser = await this.prisma.user.create({ data });
