@@ -12,12 +12,10 @@ export class UserController {
   @IsPublic()
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
-  }
-
-  @Get('test')
-  @Roles(Role.Admin)
-  getTest(): string {
-    return 'getTest';
+    try {
+      return this.userService.create(createUserDto);
+    } catch (err) {
+      throw new Error(err);
+    }
   }
 }

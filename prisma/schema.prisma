@@ -24,7 +24,7 @@ model User {
   created_at DateTime   @default(now())
   updated_at DateTime   @default(now())
   account_id Int
-  account    Account    @relation(fields: [account_id], references: [id])
+  Account    Account    @relation(fields: [account_id], references: [id])
   RoleUser   RoleUser[]
 
   @@map("users")
