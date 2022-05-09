@@ -7,6 +7,8 @@ import { UserPayload, UserToken } from './protocols';
 
 @Injectable()
 export class AuthService {
+  private readonly msgPasswordInvalid =
+    'O endereço de e-mail ou a senha fornecidos estão incorretos.';
   constructor(
     private readonly jwtService: JwtService,
     private readonly findByEmailUserService: FindByEmailUserService,
@@ -27,19 +29,19 @@ export class AuthService {
   async validateUser(email: string, password: string): Promise<User> {
     const user = await this.findByEmailUserService.execute(email);
 
-    if (user) {
-      const isPasswordValid = await bcrypt.compare(password, user.password);
-
-      if (isPasswordValid) {
-        return {
-          ...user,
-          password: undefined,
-        };
-      }
+    if (!user || !user.active) {
+      throw new Error(this.msgPasswordInvalid);
     }
 
-    throw new Error(
-      'O endereço de e-mail ou a senha fornecidos estão incorretos.',
-    );
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
+      throw new Error(this.msgPasswordInvalid);
+    }
+
+    return {
+      ...user,
+      password: undefined,
+    };
   }
 }
